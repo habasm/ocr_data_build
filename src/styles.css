@@ -1,0 +1,535 @@
+:root {
+  color: #172033;
+  background: #f4f6f8;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+* {
+  scrollbar-color: #9aa7b6 transparent;
+  scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+  height: 4px;
+  width: 4px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #9aa7b6;
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+button,
+textarea,
+input {
+  font: inherit;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 250px minmax(360px, 1fr) 330px;
+  min-height: 100vh;
+}
+
+.sidebar,
+.manifest {
+  background: #ffffff;
+  border-right: 1px solid #d8dee8;
+  padding: 18px;
+  overflow-y: auto;
+}
+
+.manifest {
+  border-right: 0;
+  border-left: 1px solid #d8dee8;
+}
+
+.brand {
+  font-size: 20px;
+  font-weight: 760;
+  margin-bottom: 18px;
+}
+
+.upload,
+.tool,
+.save,
+.imageList button,
+.cropCard button,
+.pager button,
+.recordCard button {
+  align-items: center;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #172033;
+  cursor: pointer;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  min-height: 40px;
+  padding: 9px 12px;
+  text-decoration: none;
+  width: 100%;
+}
+
+.iconGlyph {
+  display: inline-grid;
+  font-weight: 800;
+  min-width: 18px;
+  place-items: center;
+}
+
+.upload {
+  background: #172033;
+  border-color: #172033;
+  color: white;
+}
+
+.upload input {
+  display: none;
+}
+
+.tool {
+  margin-top: 10px;
+}
+
+.tool:disabled,
+.save:disabled {
+  cursor: not-allowed;
+  opacity: .55;
+}
+
+.imageList {
+  display: grid;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.sourceItem {
+  display: grid;
+  gap: 6px;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.sourceItem > button:first-child {
+  justify-content: flex-start;
+  overflow-wrap: anywhere;
+  text-align: left;
+}
+
+.sourceItem.active > button:first-child {
+  border-color: #2563eb;
+  box-shadow: inset 0 0 0 1px #2563eb;
+}
+
+.sourceItem .iconButton {
+  height: 40px;
+  width: 40px;
+}
+
+.workspace {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  min-width: 0;
+}
+
+.zoomBar {
+  align-items: center;
+  background: #ffffff;
+  border-bottom: 1px solid #d8dee8;
+  display: grid;
+  gap: 8px;
+  grid-template-columns: minmax(180px, 1fr) auto auto auto auto auto;
+  padding: 7px 12px;
+}
+
+.zoomBar span {
+  color: #526071;
+  font-size: 13px;
+  min-width: 48px;
+  text-align: center;
+}
+
+.resetZoom {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  color: #172033;
+  cursor: pointer;
+  height: 34px;
+  padding: 0 10px;
+}
+
+.topTextInput {
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  height: 38px;
+  line-height: 1.25;
+  min-height: 38px;
+  padding: 7px 9px;
+  resize: vertical;
+  width: 100%;
+}
+
+.topSave {
+  min-height: 34px;
+  padding: 0 12px;
+  width: auto;
+}
+
+.resetZoom:disabled {
+  cursor: not-allowed;
+  opacity: .42;
+}
+
+.stage {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 0;
+  overscroll-behavior: contain;
+  overflow: auto;
+  padding: 24px;
+}
+
+.imageWrap {
+  position: relative;
+  max-width: none;
+  width: fit-content;
+}
+
+.imageWrap img {
+  display: block;
+  height: auto;
+  max-width: none;
+  object-fit: contain;
+  user-select: none;
+}
+
+.cropLayer {
+  cursor: crosshair;
+  height: var(--crop-layer-height);
+  inset: 0;
+  position: absolute;
+  touch-action: none;
+  width: var(--crop-layer-width);
+}
+
+.cropLayer canvas {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.empty {
+  border: 1px dashed #a7b0c0;
+  border-radius: 8px;
+  color: #5f6b7a;
+  padding: 36px;
+  text-align: center;
+}
+
+.panel {
+  align-items: center;
+  background: #ffffff;
+  border-top: 1px solid #d8dee8;
+  display: flex;
+  min-height: 32px;
+  padding: 6px 12px;
+}
+
+.panel textarea,
+.cropCard textarea,
+.recordCard textarea {
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  min-height: 66px;
+  padding: 10px;
+  resize: vertical;
+  width: 100%;
+}
+
+.save {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: white;
+}
+
+.status {
+  color: #557086;
+  font-size: 13px;
+  min-height: 18px;
+}
+
+.manifest h2 {
+  font-size: 16px;
+  margin: 0 0 10px;
+}
+
+.cropCard {
+  border: 1px solid #d8dee8;
+  border-radius: 8px;
+  display: grid;
+  gap: 10px;
+  margin-bottom: 12px;
+  padding: 10px;
+}
+
+.cropCard img {
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  max-height: 100px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.meta {
+  color: #667085;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.recentList {
+  display: grid;
+  gap: 8px;
+}
+
+.recentItem {
+  align-items: stretch;
+  border: 1px solid #d8dee8;
+  border-radius: 8px;
+  display: grid;
+  gap: 7px;
+  grid-template-columns: 1fr;
+  padding: 8px;
+}
+
+.zoomableCrop {
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  cursor: zoom-in;
+  height: 118px;
+  overflow: auto;
+  width: 100%;
+}
+
+.zoomableCrop img {
+  display: block;
+  object-fit: contain;
+}
+
+.recentItem .zoomableCrop {
+  height: 96px;
+}
+
+.recentBody {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+}
+
+.recentEditRow {
+  align-items: stretch;
+  display: grid;
+  gap: 6px;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.recentBody textarea {
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 12px;
+  line-height: 1.3;
+  min-height: 42px;
+  padding: 6px;
+  resize: vertical;
+  width: 100%;
+}
+
+.recentBody .cardActions {
+  justify-content: flex-start;
+}
+
+.verticalActions {
+  align-content: start;
+  display: grid;
+  gap: 5px;
+}
+
+.recentBody .iconButton {
+  height: 28px;
+  width: 28px;
+}
+
+.recentBody .iconButton svg {
+  height: 15px;
+  width: 15px;
+}
+
+.manifestPage {
+  background: #eef2f7;
+  min-height: 100vh;
+  padding: 18px;
+}
+
+.manifestHeader,
+.manifestFooter {
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #d8dee8;
+  border-radius: 8px;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  padding: 12px 14px;
+}
+
+.manifestHeader h1 {
+  font-size: 20px;
+  margin: 0;
+}
+
+.manifestHeader p {
+  color: #667085;
+  font-size: 13px;
+  margin: 6px 0 0;
+}
+
+.pager {
+  align-items: center;
+  display: flex;
+  gap: 7px;
+}
+
+.pager input {
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  height: 34px;
+  text-align: center;
+  width: 58px;
+}
+
+.pager span {
+  color: #526071;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.iconButton {
+  align-items: center;
+  aspect-ratio: 1;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  color: #172033;
+  cursor: pointer;
+  display: inline-grid;
+  height: 34px;
+  justify-content: center;
+  padding: 0;
+  width: 34px;
+}
+
+.iconButton svg {
+  fill: currentColor;
+  height: 18px;
+  width: 18px;
+}
+
+.iconButton:disabled {
+  cursor: not-allowed;
+  opacity: .42;
+}
+
+.manifestGrid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  margin: 12px 0;
+}
+
+.recordCard {
+  background: #ffffff;
+  border: 1px solid #d8dee8;
+  border-radius: 8px;
+  display: grid;
+  gap: 7px;
+  padding: 8px;
+}
+
+.recordCard .zoomableCrop {
+  height: 126px;
+}
+
+.recordId {
+  color: #667085;
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+
+.recordCard textarea {
+  font-size: 13px;
+  min-height: 52px;
+  padding: 8px;
+}
+
+.cardActions {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+.saveIcon {
+  background: #eaf2ff;
+  border-color: #b9d0ff;
+  color: #1d4ed8;
+}
+
+.dangerIcon {
+  background: #fff1f2;
+  border-color: #fecdd3;
+  color: #be123c;
+}
+
+@media (max-width: 980px) {
+  .app {
+    grid-template-columns: 1fr;
+  }
+
+  .zoomBar {
+    grid-template-columns: minmax(160px, 1fr) auto auto auto;
+  }
+
+  .topSave {
+    grid-column: 2 / span 1;
+  }
+
+  .sidebar,
+  .manifest {
+    border: 0;
+    border-bottom: 1px solid #d8dee8;
+  }
+
+  .manifestHeader,
+  .manifestFooter {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
